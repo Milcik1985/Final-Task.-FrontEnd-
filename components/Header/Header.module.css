@@ -1,0 +1,29 @@
+.header {
+  background-color: yellowgreen;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.links {
+  color: black;
+  font-weight: bold;
+  font-size: 1.4rem;
+  display: flex;
+  gap: 4rem;
+  justify-content: space-around;
+}
+
+.header h1 {
+  color: black;
+}
+
+.image {
+  position: absolute;
+  left: -777px;
+  top: 19px;
+}

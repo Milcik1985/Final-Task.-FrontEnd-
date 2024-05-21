@@ -1,0 +1,37 @@
+.textareaWrapper {
+  height: 74vh;
+  display: flex;
+  justify-content: center;
+}
+
+.background {
+  background-color: yellowgreen;
+  margin: 1rem;
+  border: 5px solid white;
+  border-radius: 10px;
+  width: 40rem;
+  height: 29rem;
+  margin: 6rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem;
+}
+
+.content h1 {
+  color: black;
+}
+
+.textArea {
+  padding: 0.5rem;
+  border: 2px solid white;
+  width: 20rem;
+  background-color: rgb(161, 159, 159);
+  height: 10rem;
+  color: black;
+}

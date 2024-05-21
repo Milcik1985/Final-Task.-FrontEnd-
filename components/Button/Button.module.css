@@ -1,0 +1,14 @@
+.main {
+  padding: 0.5rem;
+  height: 3rem;
+  width: 10rem;
+  border: 2px solid white;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.warning {
+  background-color: red;
+  color: black;
+}

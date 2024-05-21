@@ -1,0 +1,36 @@
+.inputWrapper {
+  height: 74vh;
+  display: flex;
+  justify-content: center;
+}
+
+.background {
+  background-color: yellowgreen;
+  margin: 1rem;
+  border: 5px solid white;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 40rem;
+  height: 22rem;
+  margin: 8rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  padding: 0.5rem;
+  border: 2px solid white;
+  width: 20rem;
+  background-color: rgb(161, 159, 159);
+  color: black;
+}
+
+.content h1 {
+  color: black;
+}
