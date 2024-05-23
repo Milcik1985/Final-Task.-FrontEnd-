@@ -20,6 +20,8 @@ const LoginForm = () => {
       password: password,
     };
 
+    console.log(loginData);
+
     if (!email || !password) {
       setError(true);
       return;
@@ -36,7 +38,7 @@ const LoginForm = () => {
         setWrongData(false);
         console.log(response);
         cookie.set("jwt_token", response.data.jwt);
-        router.push("/all-questions");
+        router.push("/questions-answers");
       }
       console.log("response", response);
     } catch (err) {

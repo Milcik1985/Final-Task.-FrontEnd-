@@ -13,6 +13,8 @@
   width: 40rem;
   height: 30rem;
   margin: 5rem;
+  justify-content: center;
+  display: flex;
 }
 
 .content {

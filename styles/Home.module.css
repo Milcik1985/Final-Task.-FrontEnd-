@@ -1,1 +1,25 @@
+.homePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.homePageContent {
+  color: black;
+  padding: 1.5rem;
+  line-height: 3rem;
+  border: 2px solid white;
+  width: 35rem;
+  text-align: center;
+  margin: 11rem;
+  background-color: yellowgreen;
+}
+
+.paragraph {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.mainPageContent {
+  min-height: 100vh;
+}
