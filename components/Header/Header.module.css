@@ -2,11 +2,18 @@
   background-color: rgb(148, 173, 96);
   height: 10rem;
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  justify-content: center;
+  gap: 8rem;
+  justify-content: space-evenly;
   align-items: center;
   padding: 1.5rem;
+}
+
+.headerNameAndNav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 .links {
@@ -23,7 +30,6 @@
 }
 
 .image {
-  position: absolute;
-  left: -777px;
-  top: 19px;
+  height: 4rem;
+  width: 5rem;
 }

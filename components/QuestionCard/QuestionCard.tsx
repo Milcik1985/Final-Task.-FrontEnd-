@@ -7,6 +7,7 @@ import cookies from "js-cookie";
 import axios from "axios";
 import { AnswerType } from "../../types/answer";
 import LikeIcon from "../../assets/like.svg";
+import Image from "next/image";
 
 type QuestionCardProps = {
   question: QuestionType;
@@ -14,7 +15,6 @@ type QuestionCardProps = {
 };
 
 const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
-  console.log("Creating QuestionCard for question:", question);
   const router = useRouter();
   const [showTextArea, setShowTextArea] = useState(false);
   const [answers, setAnswers] = useState<AnswerType[]>([]);
@@ -22,9 +22,8 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
   const [answerText, setAnswerText] = useState("");
   const [showAnswers, setShowAnswers] = useState(false);
   const [authorizationMessage, setAuthorizationMessage] = useState("");
-  const [likedAnswers, setLikedAnswers] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const [like, setLike] = useState(0);
+  const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
     const storedUserName = cookies.get("userName");
@@ -33,26 +32,12 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
       console.log(`stored username: ${storedUserName}`);
     }
     viewAllAnswers();
-
-    const storedLikedAnswers = JSON.parse(
-      localStorage.getItem("likedAnswers") || "{}"
-    );
-    setLikedAnswers(storedLikedAnswers);
   }, []);
 
-  const toggleLike = (answerId: string) => {
-    const newLikedAnswers = { ...likedAnswers };
-    if (newLikedAnswers[answerId]) {
-      delete newLikedAnswers[answerId];
-    } else {
-      newLikedAnswers[answerId] = true;
-    }
-    setLikedAnswers(newLikedAnswers);
-    localStorage.setItem("likedAnswers", JSON.stringify(newLikedAnswers));
-  };
-
-  const getTotalLikes = (answerId: string): number => {
-    return likedAnswers[answerId] ? 1 : 0;
+  const onLikeButton = () => {
+    console.log("Like is clicked");
+    setLike(like + (isLike ? -1 : 1));
+    setIsLike(!isLike);
   };
 
   const viewAllAnswers = async () => {
@@ -130,8 +115,6 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
         return;
       }
 
-      console.log(`Deleting question with ID: ${questionId}`);
-
       const headers = { authorization: token };
 
       const deleteResponse = await axios.delete(
@@ -168,8 +151,6 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
         }, 5000);
         return;
       }
-
-      console.log(`Deleting answer with ID: ${answerId}`);
 
       const headers = { authorization: token };
 
@@ -264,26 +245,24 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
               <p>
                 <span className={styles.text}>Posted By:</span> {ans.userName}
               </p>
-              <div className={styles.deleteButtonWrapper}>
-                <button
-                  className={styles.likeButton}
-                  onClick={() => toggleLike(ans._id)}
-                >
-                  <img
-                    src={LikeIcon.src}
-                    alt="Like"
-                    className={likedAnswers[ans._id] ? styles.active : ""}
-                  />
-                </button>
-                <p className={styles.likeCount}>{getTotalLikes(ans._id)}</p>
-                <div>
-                  <Button
-                    isLoading={isLoading}
-                    onClick={() => deleteAnswer(ans._id)}
-                    title="Delete Answer"
-                    className={styles.cardButton}
-                  />
+              <div className={styles.answerBtnWrapper}>
+                <div className={styles.likeBtnWrapper}>
+                  <button onClick={onLikeButton} className={styles.likeBtn}>
+                    <Image
+                      src={LikeIcon}
+                      alt="like button"
+                      className={styles.likeButtonImage}
+                      style={{ width: "auto", height: "auto" }}
+                    />
+                  </button>
+                  <p>{like}</p>
                 </div>
+                <Button
+                  isLoading={isLoading}
+                  onClick={() => deleteAnswer(ans._id)}
+                  title="Delete Answer"
+                  className={styles.cardButton}
+                />
               </div>
             </div>
           ))}
