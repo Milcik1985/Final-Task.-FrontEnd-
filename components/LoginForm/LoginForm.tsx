@@ -44,7 +44,7 @@ const LoginForm = () => {
     } catch (err) {
       setWrongData(true);
       console.log("Error", err);
-      setLoading(true);
+      setLoading(false);
     }
   };
   return (
@@ -74,7 +74,7 @@ const LoginForm = () => {
 
           {isWrongData && (
             <div className={styles.errorMessage}>
-              Provided Data Is Incorrect
+              Provided Data Is Incorrect Or You Are Not Registered.
             </div>
           )}
         </div>

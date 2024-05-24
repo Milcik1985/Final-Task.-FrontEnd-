@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import cookies from "js-cookie";
 import axios from "axios";
 import { AnswerType } from "../../types/answer";
+import LikeIcon from "../../assets/like.svg";
 
 type QuestionCardProps = {
   question: QuestionType;
@@ -13,6 +14,7 @@ type QuestionCardProps = {
 };
 
 const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
+  console.log("Creating QuestionCard for question:", question);
   const router = useRouter();
   const [showTextArea, setShowTextArea] = useState(false);
   const [answers, setAnswers] = useState<AnswerType[]>([]);
@@ -20,6 +22,9 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
   const [answerText, setAnswerText] = useState("");
   const [showAnswers, setShowAnswers] = useState(false);
   const [authorizationMessage, setAuthorizationMessage] = useState("");
+  const [likedAnswers, setLikedAnswers] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   useEffect(() => {
     const storedUserName = cookies.get("userName");
@@ -28,7 +33,27 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
       console.log(`stored username: ${storedUserName}`);
     }
     viewAllAnswers();
+
+    const storedLikedAnswers = JSON.parse(
+      localStorage.getItem("likedAnswers") || "{}"
+    );
+    setLikedAnswers(storedLikedAnswers);
   }, []);
+
+  const toggleLike = (answerId: string) => {
+    const newLikedAnswers = { ...likedAnswers };
+    if (newLikedAnswers[answerId]) {
+      delete newLikedAnswers[answerId];
+    } else {
+      newLikedAnswers[answerId] = true;
+    }
+    setLikedAnswers(newLikedAnswers);
+    localStorage.setItem("likedAnswers", JSON.stringify(newLikedAnswers));
+  };
+
+  const getTotalLikes = (answerId: string): number => {
+    return likedAnswers[answerId] ? 1 : 0;
+  };
 
   const viewAllAnswers = async () => {
     try {
@@ -52,13 +77,25 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
 
   const postAnswer = async () => {
     try {
+      const token = cookies.get("jwt_token");
+
+      if (!token) {
+        setAuthorizationMessage(
+          "Only logged in users are allowed to perform actions. Redirecting to login page..."
+        );
+        setTimeout(() => {
+          router.push("/login");
+        }, 5000);
+        return;
+      }
+
       const newAnswer = {
         answer_text: answerText,
         userName: userName,
       };
 
       const headers = {
-        authorization: cookies.get("jwt_token"),
+        authorization: token,
       };
 
       const response = await axios.post(
@@ -79,13 +116,62 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
     }
   };
 
+  const deleteQuestion = async (questionId: string) => {
+    try {
+      const token = cookies.get("jwt_token");
+
+      if (!token) {
+        setAuthorizationMessage(
+          "Only logged in users are allowed to perform actions. Redirecting to login page..."
+        );
+        setTimeout(() => {
+          router.push("/login");
+        }, 5000);
+        return;
+      }
+
+      console.log(`Deleting question with ID: ${questionId}`);
+
+      const headers = { authorization: token };
+
+      const deleteResponse = await axios.delete(
+        `${process.env.SERVER_URL}/questions/${questionId}`,
+        { headers }
+      );
+
+      if (deleteResponse.status === 200) {
+        viewAllAnswers();
+        setAuthorizationMessage("The question was deleted successfully");
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
+    } catch (err) {
+      console.log("Error deleting question:", err);
+      setAuthorizationMessage(
+        "Error occurred while trying to delete the question"
+      );
+    }
+  };
+
   const deleteAnswer = async (answerId: string) => {
     try {
-      const headers = {
-        authorization: cookies.get("jwt_token"),
-      };
+      const token = cookies.get("jwt_token");
+
+      if (!token) {
+        setAuthorizationMessage(
+          "Only logged in users are allowed to perform actions. Redirecting to login page..."
+        );
+        setTimeout(() => {
+          router.push("/login");
+        }, 5000);
+        return;
+      }
 
       console.log(`Deleting answer with ID: ${answerId}`);
+
+      const headers = { authorization: token };
 
       const deleteResponse = await axios.delete(
         `${process.env.SERVER_URL}/answer/${answerId}`,
@@ -94,7 +180,10 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
 
       if (deleteResponse.status === 200) {
         viewAllAnswers();
-        setAuthorizationMessage("the answer was deleted successfully");
+        setAuthorizationMessage("The answer was deleted successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
     } catch (err) {
       console.log("Error deleting answer:", err);
@@ -105,6 +194,7 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
   };
 
   const formattedDate = new Date(question.date).toLocaleDateString();
+
   return (
     <div className={styles.container}>
       <p>
@@ -113,17 +203,25 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
       <p>
         <span className={styles.text}>Posted On:</span> {formattedDate}
       </p>
-      <p>
-        <span className={styles.text}>Posted By:</span> {question.userName}
-      </p>
+      <div className={styles.deleteQuestionWrapper}>
+        <p>
+          <span className={styles.text}>Posted By:</span> {question.userName}
+        </p>
+        <Button
+          isLoading={isLoading}
+          onClick={() => deleteQuestion(question._id)}
+          title="Delete Question"
+          className={styles.cardButton}
+        />
+      </div>
 
       <div className={styles.buttonWrapper}>
         {!showTextArea && (
           <Button
+            className={styles.cardButton}
             isLoading={isLoading}
             onClick={() => setShowTextArea(true)}
             title="Post An Answer"
-            className={styles.answerButton}
           />
         )}
 
@@ -133,10 +231,9 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
             setShowAnswers(!showAnswers);
           }}
           title={showAnswers ? "Hide Answers" : "View All Answers"}
-          className={styles.answerButton}
+          className={styles.cardButton}
         />
       </div>
-
       {showTextArea && (
         <div>
           <textarea
@@ -149,11 +246,10 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
             isLoading={isLoading}
             onClick={postAnswer}
             title="Submit"
-            className={styles.answerButton}
+            className={styles.cardButton}
           />
         </div>
       )}
-
       {showAnswers && answers.length > 0 && (
         <div className={styles.answerContainer}>
           {answers.map((ans) => (
@@ -169,18 +265,30 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
                 <span className={styles.text}>Posted By:</span> {ans.userName}
               </p>
               <div className={styles.deleteButtonWrapper}>
-                <Button
-                  isLoading={isLoading}
-                  onClick={() => deleteAnswer(ans._id)}
-                  title="Delete Answer"
-                  className={styles.deleteButton}
-                />
+                <button
+                  className={styles.likeButton}
+                  onClick={() => toggleLike(ans._id)}
+                >
+                  <img
+                    src={LikeIcon.src}
+                    alt="Like"
+                    className={likedAnswers[ans._id] ? styles.active : ""}
+                  />
+                </button>
+                <p className={styles.likeCount}>{getTotalLikes(ans._id)}</p>
+                <div>
+                  <Button
+                    isLoading={isLoading}
+                    onClick={() => deleteAnswer(ans._id)}
+                    title="Delete Answer"
+                    className={styles.cardButton}
+                  />
+                </div>
               </div>
             </div>
           ))}
         </div>
       )}
-
       {authorizationMessage && (
         <div>
           <p className={styles.deleteBan}>{authorizationMessage}</p>

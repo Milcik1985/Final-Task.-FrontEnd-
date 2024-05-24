@@ -28,7 +28,7 @@ const PostQuestionForm = () => {
       );
 
       if (response.status === 200) {
-        router.push("/all-questions-and-answers");
+        router.push("/questions-answers");
       } else {
         setError("Something went wrong. Failed to post a question");
       }

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageTemplate from "../../components/PageTemplate/PageTemplate";
 import QuestionCardWrapper from "../../components/QuestionCardWrapper/QuestionCardWrapper";
-import axios from "axios";
-import { QuestionType } from "../../types/question";
 import styles from "../../styles/Home.module.css";
+import { QuestionType } from "../../types/question";
+import axios from "axios";
 
-const AllQuestions = () => {
+const Index = () => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
 
   useEffect(() => {
@@ -19,18 +19,15 @@ const AllQuestions = () => {
     };
     fetchQuestions();
   }, []);
+
   console.log("Questions:", questions);
   return (
     <PageTemplate>
       <div className={styles.mainPageContent}>
-        {questions.length > 0 ? (
-          <QuestionCardWrapper questions={questions} />
-        ) : (
-          <p>No Questions Available</p>
-        )}
+        <QuestionCardWrapper questions={questions} />
       </div>
     </PageTemplate>
   );
 };
 
-export default AllQuestions;
+export default Index;

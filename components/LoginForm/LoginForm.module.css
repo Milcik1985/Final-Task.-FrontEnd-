@@ -5,7 +5,7 @@
 }
 
 .background {
-  background-color: yellowgreen;
+  background-color: rgb(148, 173, 96);
   margin: 1rem;
   border: 5px solid white;
   border-radius: 10px;
@@ -33,4 +33,8 @@
 
 .content h1 {
   color: black;
+}
+
+.errorMessage {
+  color: red;
 }

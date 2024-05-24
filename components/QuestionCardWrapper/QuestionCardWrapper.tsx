@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./QuestionCardWrapper.module.css";
 import { QuestionType } from "../../types/question";
@@ -8,8 +8,6 @@ type QuestionCardsProps = {
 };
 
 const QuestionCardWrapper: React.FC<QuestionCardsProps> = ({ questions }) => {
-  console.log("Questions Prop:", questions);
-
   return (
     <div className={styles.cardWrapper}>
       {Array.isArray(questions) && questions.length > 0 ? (
