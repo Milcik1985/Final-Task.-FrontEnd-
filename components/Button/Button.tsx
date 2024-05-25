@@ -8,6 +8,7 @@ type ButtonProps = {
   title: string;
   type?: "WARNING" | "NORMAL";
   className?: string;
+  isAvailable?: boolean;
 };
 
 const Button = ({
@@ -16,12 +17,13 @@ const Button = ({
   title,
   type,
   className,
+  isAvailable = false,
 }: ButtonProps) => {
   return (
     <button
-      className={`${styles.main} ${type === "WARNING" && styles.warning} ${
-        className && className
-      }`}
+      className={`${styles.mainButton} ${
+        type === "WARNING" ? styles.warning : ""
+      } ${isAvailable ? styles.available : ""} ${className ? className : ""}`}
       onClick={onClick}
     >
       {isLoading ? <Spinner /> : <>{title}</>}

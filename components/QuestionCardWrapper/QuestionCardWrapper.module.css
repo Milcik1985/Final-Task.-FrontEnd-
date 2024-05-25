@@ -1,7 +1,9 @@
 .cardWrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 2rem;
-  padding: 3rem;
-  justify-content: center;
+  color: black;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 58rem;
 }

@@ -1,99 +1,81 @@
-.container {
-  background-color: rgb(148, 173, 96);
-  color: black;
-  font-weight: bold;
-  width: 53rem;
-  border: 2px solid white;
-  border-radius: 10px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 1rem;
-}
-
 .questionCard {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 3rem;
-}
-/* TODO: does not applies styles: */
-.cardButton {
-  padding: 0.3rem;
-  width: 8rem;
-  font-size: 0.8rem;
-  height: 1.5rem;
-}
-
-.buttonWrapper {
-  display: flex;
-  justify-content: space-between;
+  background-color: rgb(148, 173, 96);
   padding: 1rem;
-}
-
-.answerContainer {
-  border-radius: 10px;
   border: 2px solid white;
-  padding: 0.5rem;
-  background-color: gray;
+  border-radius: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.singleAnswer {
-  padding: 0.5rem;
-}
-
-.deleteButtonWrapper {
-  padding: 1rem;
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 1rem;
+  justify-content: space-around;
   align-items: center;
-}
-
-.text {
-  font-size: 1.2rem;
-}
-
-.textArea {
-  width: 28rem;
-  height: 7rem;
-}
-
-.deleteQuestionWrapper {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 1rem;
-}
-
-.deleteBan {
-  color: red;
-}
-
-.buttonsWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem;
-}
-
-.singleAnswer {
-  border-bottom: 2px solid white;
-}
-
-.buttonsWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .questionWrapper {
   display: flex;
   flex-direction: column;
+  gap: 0.7rem;
+  min-width: 22rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
+}
+
+.answerContainer {
+  padding: 1rem;
+  background-color: rgb(161, 159, 159);
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.singleAnswer {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  border-bottom: 2px solid white;
+}
+
+.likesWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.postedAndLikesWrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+.posted {
+  display: flex;
+  flex-direction: column;
+}
+
+.answerBottomContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textAreaWrapper {
+  background-color: rgb(148, 173, 96);
+  border-radius: 10px;
+  border: 2px solid white;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.textArea {
+  min-height: 6rem;
+  min-width: 22rem;
+}
+
+.deleteMessage {
+  color: red;
+  font-weight: bold;
 }
