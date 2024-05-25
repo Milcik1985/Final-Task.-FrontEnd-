@@ -3,4 +3,5 @@ export type AnswerType = {
   answer_text: string;
   userName: string;
   date: Date;
+  gained_likes: number;
 };

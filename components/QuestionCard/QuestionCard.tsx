@@ -6,8 +6,7 @@ import { useRouter } from "next/router";
 import cookies from "js-cookie";
 import axios from "axios";
 import { AnswerType } from "../../types/answer";
-import LikeIcon from "../../assets/like.svg";
-import Image from "next/image";
+import LikeButton from "../LikeButton/likeButton";
 
 type QuestionCardProps = {
   question: QuestionType;
@@ -22,8 +21,6 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
   const [answerText, setAnswerText] = useState("");
   const [showAnswers, setShowAnswers] = useState(false);
   const [authorizationMessage, setAuthorizationMessage] = useState("");
-  const [like, setLike] = useState(0);
-  const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
     const storedUserName = cookies.get("userName");
@@ -33,12 +30,6 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
     }
     viewAllAnswers();
   }, []);
-
-  const onLikeButton = () => {
-    console.log("Like is clicked");
-    setLike(like + (isLike ? -1 : 1));
-    setIsLike(!isLike);
-  };
 
   const viewAllAnswers = async () => {
     try {
@@ -246,17 +237,7 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
                 <span className={styles.text}>Posted By:</span> {ans.userName}
               </p>
               <div className={styles.answerBtnWrapper}>
-                <div className={styles.likeBtnWrapper}>
-                  <button onClick={onLikeButton} className={styles.likeBtn}>
-                    <Image
-                      src={LikeIcon}
-                      alt="like button"
-                      className={styles.likeButtonImage}
-                      style={{ width: "auto", height: "auto" }}
-                    />
-                  </button>
-                  <p>{like}</p>
-                </div>
+                <LikeButton ansId={ans._id} />
                 <Button
                   isLoading={isLoading}
                   onClick={() => deleteAnswer(ans._id)}
