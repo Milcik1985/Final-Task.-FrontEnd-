@@ -34,7 +34,7 @@ const PostQuestionForm = () => {
       }
     } catch (err) {
       console.log("Error:", err);
-      setError("Error occured. Please Try Again.");
+      setError("Only registered and logged users can post questions");
     }
     setLoading(false);
   };

@@ -35,3 +35,8 @@
   height: 10rem;
   color: black;
 }
+
+.error {
+  color: red;
+  font-weight: bold;
+}

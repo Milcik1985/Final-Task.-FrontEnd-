@@ -60,9 +60,10 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
         setAuthorizationMessage(
           "Only logged in users are allowed to perform actions. Redirecting to login page..."
         );
+        setMessageId("postAnswer");
         setTimeout(() => {
           router.push("/login");
-        }, 5000);
+        }, 3000);
         return;
       }
 
@@ -104,7 +105,7 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
         setMessageId("question");
         setTimeout(() => {
           router.push("/login");
-        }, 5000);
+        }, 3000);
         return;
       }
 
@@ -121,7 +122,7 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
         setMessageId("question");
         setTimeout(() => {
           window.location.reload();
-        }, 5000);
+        }, 3000);
       }
     } catch (err) {
       console.log("Error deleting question:", err);
@@ -143,7 +144,7 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
         setMessageId(answerId);
         setTimeout(() => {
           router.push("/login");
-        }, 5000);
+        }, 3000);
         return;
       }
 
@@ -158,9 +159,6 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
         viewAllAnswers();
         setAuthorizationMessage("The answer was deleted successfully");
         setMessageId(answerId);
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
       }
     } catch (err) {
       console.log("Error deleting answer:", err);
@@ -176,46 +174,50 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.questionCard}>
-        <div className={styles.questionWrapper}>
-          <p>
-            <span className={styles.text}>Question:</span>{" "}
-            {question.question_text}
-          </p>
-          <p>
-            <span className={styles.text}>Posted On:</span> {formattedDate}
-          </p>
-          <p>
-            <span className={styles.text}>Posted By:</span> {question.userName}
-          </p>
-        </div>
-        <div className={styles.buttons}>
-          <Button
-            onClick={() => deleteQuestion(question._id)}
-            className={styles.cardButton}
-            isLoading={isLoading}
-            title="Delete Question"
-            type="NORMAL"
-            isAvailable={true}
-          />
-          {!showTextArea && (
+        <div className={styles.questionContent}>
+          <div className={styles.questionWrapper}>
+            <p>
+              <span className={styles.text}>Question:</span>{" "}
+              {question.question_text}
+            </p>
+            <p>
+              <span className={styles.text}>Posted On:</span> {formattedDate}
+            </p>
+            <p>
+              <span className={styles.text}>Posted By:</span>{" "}
+              {question.userName}
+            </p>
+          </div>
+          <div className={styles.buttons}>
             <Button
-              onClick={() => setShowTextArea(true)}
+              onClick={() => deleteQuestion(question._id)}
               className={styles.cardButton}
               isLoading={isLoading}
-              title="Post An Answer"
+              title="Delete Question"
               type="NORMAL"
               isAvailable={true}
             />
-          )}
-          <Button
-            className={styles.cardButton}
-            isLoading={isLoading}
-            onClick={() => {
-              setShowAnswers(!showAnswers);
-            }}
-            title={showAnswers ? "Hide Answers" : "View All Answers"}
-          />
+            {!showTextArea && (
+              <Button
+                onClick={() => setShowTextArea(true)}
+                className={styles.cardButton}
+                isLoading={isLoading}
+                title="Post An Answer"
+                type="NORMAL"
+                isAvailable={true}
+              />
+            )}
+            <Button
+              className={styles.cardButton}
+              isLoading={isLoading}
+              onClick={() => {
+                setShowAnswers(!showAnswers);
+              }}
+              title={showAnswers ? "Hide Answers" : "View All Answers"}
+            />
+          </div>
         </div>
+
         {authorizationMessage && messageId === "question" && (
           <div>
             <p className={styles.deleteMessage}>{authorizationMessage}</p>
@@ -224,18 +226,21 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
       </div>
       {showTextArea && (
         <div className={styles.textAreaWrapper}>
-          <textarea
-            className={styles.textArea}
-            value={answerText}
-            onChange={handleAnswerTextChange}
-            placeholder="Enter Your Answer"
-          />
-          <Button
-            isLoading={isLoading}
-            onClick={postAnswer}
-            title="Submit"
-            className={styles.cardButton}
-          />
+          <div className={styles.textAreaContent}>
+            <textarea
+              className={styles.textArea}
+              value={answerText}
+              onChange={handleAnswerTextChange}
+              placeholder="Enter Your Answer"
+            />
+            <Button
+              isLoading={isLoading}
+              onClick={postAnswer}
+              title="Submit"
+              className={styles.cardButton}
+            />
+          </div>
+
           {authorizationMessage && messageId === "postAnswer" && (
             <div>
               <p className={styles.deleteMessage}>{authorizationMessage}</p>
@@ -277,14 +282,14 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
                       className={styles.cardButton}
                     />
                   </div>
-                  {authorizationMessage && messageId === ans._id && (
-                    <div>
-                      <p className={styles.deleteMessage}>
-                        {authorizationMessage}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                </div>{" "}
+                {authorizationMessage && messageId === ans._id && (
+                  <div className={styles.deleteMessageWrapper}>
+                    <p className={styles.deleteMessage}>
+                      {authorizationMessage}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           ))}

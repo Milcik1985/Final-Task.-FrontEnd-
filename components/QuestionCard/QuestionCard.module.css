@@ -4,8 +4,16 @@
   border: 2px solid white;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  gap: 1rem;
+}
+
+.questionContent {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .questionWrapper {
@@ -62,8 +70,9 @@
   background-color: rgb(148, 173, 96);
   border-radius: 10px;
   border: 2px solid white;
-  height: 10rem;
+  min-height: 10rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
@@ -75,7 +84,17 @@
   min-width: 22rem;
 }
 
+.textAreaContent {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .deleteMessage {
   color: red;
   font-weight: bold;
+}
+
+.deleteMessageWrapper {
+  text-align: center;
 }
