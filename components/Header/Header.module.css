@@ -33,3 +33,76 @@
   height: 4rem;
   width: 5rem;
 }
+
+.image2 {
+  height: 4rem;
+  width: 5rem;
+}
+
+.burgerMenu {
+  border: none;
+}
+
+.burgerBtn {
+  display: none;
+  background-color: rgb(148, 173, 96);
+}
+
+.mobileMenu {
+  display: none;
+}
+
+@media only screen and (max-width: 1042px) {
+  .image2 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .links {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 785px) {
+  .links {
+    display: none;
+  }
+
+  .welcome {
+    text-align: center;
+    font-size: 1.5rem;
+    width: 12rem;
+  }
+
+  .burgerBtn {
+    display: block;
+    cursor: pointer;
+  }
+
+  .mobileMenu {
+    background-color: rgb(148, 173, 96);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - 80px);
+    left: -1000px;
+    top: 109px;
+    transform: 0.3s;
+  }
+
+  .mobileMenuOpen {
+    left: 0px;
+  }
+
+  .mobileLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 4rem;
+    color: black;
+    font-weight: bold;
+  }
+}
