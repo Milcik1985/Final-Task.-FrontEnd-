@@ -71,7 +71,7 @@
   }
 }
 
-@media only screen and (max-width: 785px) {
+@media only screen and (max-width: 880px) {
   .links {
     display: none;
   }
@@ -105,5 +105,53 @@
     padding-top: 4rem;
     color: black;
     font-weight: bold;
+  }
+}
+
+@media only screen and (max-width: 778px) {
+  .header {
+    gap: 7rem;
+  }
+}
+
+@media only screen and (max-width: 754px) {
+  .header {
+    gap: 6rem;
+  }
+}
+
+@media only screen and (max-width: 717px) {
+  .header {
+    gap: 5rem;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .header {
+    gap: 4rem;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .header {
+    gap: 3rem;
+  }
+}
+
+@media only screen and (max-width: 614px) {
+  .header {
+    gap: 2rem;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .header {
+    gap: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 546px) {
+  .welcome {
+    width: 17rem;
   }
 }

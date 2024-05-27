@@ -29,3 +29,25 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+@media only screen and (max-width: 842px) {
+  .homePageContent {
+    margin: 9rem;
+  }
+
+  .homePage {
+    height: 76vh;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .homePageContent {
+    margin: 6rem;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .homePageContent {
+    margin: 3rem;
+  }
+}
