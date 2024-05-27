@@ -4,6 +4,7 @@ import QuestionCardWrapper from "../../components/QuestionCardWrapper/QuestionCa
 import styles from "../../styles/Home.module.css";
 import { QuestionType } from "../../types/question";
 import axios from "axios";
+import Button from "../../components/Button/Button";
 
 const Index = () => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
@@ -24,6 +25,20 @@ const Index = () => {
   return (
     <PageTemplate>
       <div className={styles.mainPageContent}>
+        <a href="/unanswered-questions">
+          <Button
+            title="Unanswered Questions"
+            onClick={() => {}}
+            isLoading={false}
+          />
+        </a>
+        <a href="/answered-questions">
+          <Button
+            title="Answered Questions"
+            onClick={() => {}}
+            isLoading={false}
+          />
+        </a>
         <QuestionCardWrapper questions={questions} />
       </div>
     </PageTemplate>
