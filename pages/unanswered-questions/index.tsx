@@ -5,7 +5,6 @@ import styles from "../../styles/Home.module.css";
 import { QuestionType } from "../../types/question";
 import axios from "axios";
 import { AnswerType } from "../../types/answer";
-import { useRouter } from "next/router";
 
 const Index = () => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);

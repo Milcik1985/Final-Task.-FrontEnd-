@@ -50,7 +50,6 @@ const Index = () => {
   console.log("Questions:", questions);
   console.log("Answers:", answers);
 
-  // Filter questions to only show those with answers
   const filteredQuestions = questions.filter(
     (question: QuestionType) =>
       answers[question._id] && answers[question._id].length > 0

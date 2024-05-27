@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./QuestionCardWrapper.module.css";
 import { QuestionType } from "../../types/question";
+import FilterButtons from "../FilterButtons/FilterButtons";
 
 type QuestionCardsProps = {
   questions: QuestionType[];
@@ -9,15 +10,18 @@ type QuestionCardsProps = {
 
 const QuestionCardWrapper: React.FC<QuestionCardsProps> = ({ questions }) => {
   return (
-    <div className={styles.cardWrapper}>
-      {Array.isArray(questions) && questions.length > 0 ? (
-        questions.map((question) => (
-          <QuestionCard key={question._id} question={question} />
-        ))
-      ) : (
-        <p>No questions available</p>
-      )}
-    </div>
+    <>
+      <FilterButtons />
+      <div className={styles.cardWrapper}>
+        {Array.isArray(questions) && questions.length > 0 ? (
+          questions.map((question) => (
+            <QuestionCard key={question._id} question={question} />
+          ))
+        ) : (
+          <p>No questions available</p>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -25,20 +25,6 @@ const Index = () => {
   return (
     <PageTemplate>
       <div className={styles.mainPageContent}>
-        <a href="/unanswered-questions">
-          <Button
-            title="Unanswered Questions"
-            onClick={() => {}}
-            isLoading={false}
-          />
-        </a>
-        <a href="/answered-questions">
-          <Button
-            title="Answered Questions"
-            onClick={() => {}}
-            isLoading={false}
-          />
-        </a>
         <QuestionCardWrapper questions={questions} />
       </div>
     </PageTemplate>

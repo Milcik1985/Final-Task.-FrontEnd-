@@ -1,0 +1,8 @@
+.filterBtns {
+  display: flex;
+  gap: 2rem;
+}
+
+.filterBtnText {
+  font-size: 0.9rem;
+}
