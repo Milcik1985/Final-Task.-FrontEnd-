@@ -30,6 +30,7 @@ const QuestionCard = ({ question, isLoading = false }: QuestionCardProps) => {
       console.log(`stored username: ${storedUserName}`);
     }
     viewAllAnswers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const viewAllAnswers = async () => {

@@ -1,26 +1,27 @@
 import React from "react";
 import Button from "../Button/Button";
 import styles from "./FilterButtons.module.css";
+import Link from "next/link";
 
 const FilterButtons = () => {
   return (
     <div className={styles.filterBtns}>
-      <a href="/unanswered-questions">
+      <Link href="/unanswered-questions">
         <Button
           title="Unanswered Questions"
           onClick={() => {}}
           isLoading={false}
           className={styles.filterBtnText}
         />
-      </a>
-      <a href="/answered-questions">
+      </Link>
+      <Link href="/answered-questions">
         <Button
           title="Answered Questions"
           onClick={() => {}}
           isLoading={false}
           className={styles.filterBtnText}
         />
-      </a>
+      </Link>
     </div>
   );
 };
